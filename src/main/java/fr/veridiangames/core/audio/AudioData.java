@@ -19,6 +19,7 @@
 
 package fr.veridiangames.core.audio;
 
+import fr.veridiangames.client.FileManager;
 import fr.veridiangames.core.utils.Log;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL10;
@@ -27,6 +28,8 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
@@ -95,15 +98,9 @@ public class AudioData
     public static AudioData create(String file)
     {
         InputStream stream = null;
-        try
-        {
-            stream = new FileInputStream(file);
-        }
-        catch (FileNotFoundException e)
-        {
-            Log.exception(e);
-        }
-        if (stream == null)
+		InputStream resource = FileManager.class.getClassLoader().getResourceAsStream(file);
+		stream = resource;
+		if (stream == null)
         {
             throw new RuntimeException("Sound file not found: " + file);
         }

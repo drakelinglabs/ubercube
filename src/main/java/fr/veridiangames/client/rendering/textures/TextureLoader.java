@@ -26,6 +26,9 @@ import static org.lwjgl.opengl.GL30.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +36,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import fr.veridiangames.client.FileManager;
 import fr.veridiangames.core.utils.Log;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL12;
@@ -141,7 +145,8 @@ public class TextureLoader
 		int width = 0, height = 0;
 		try
 		{
-			BufferedImage image = ImageIO.read(new File(path));
+			InputStream resource = FileManager.class.getClassLoader().getResourceAsStream(path);
+			BufferedImage image = ImageIO.read(resource);
 			width = image.getWidth();
 			height = image.getHeight();
 			pixels = new int[width * height];

@@ -20,6 +20,12 @@
 package fr.veridiangames.client;
 
 import fr.veridiangames.core.GameCore;
+import fr.veridiangames.core.utils.Log;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.net.URL;
 
 import static fr.veridiangames.core.utils.FileUtils.fileExist;
 
@@ -27,9 +33,16 @@ public class FileManager
 {
     public static String getResource(String path)
     {
+		InputStream resource = FileManager.class.getClassLoader().getResourceAsStream(path);
         String fullPath = GameCore.RESOURCES_PATH + path;
-        if (!fileExist(fullPath))
-            throw new RuntimeException("Unknown resource: " + path);
-        return (fullPath);
+		if (resource == null) {
+			throw new IllegalArgumentException("file not found!");
+		} else {
+
+			// failed if files have whitespaces or special characters
+			//return new File(resource.getFile());
+
+			return fullPath;
+		}
     }
 }

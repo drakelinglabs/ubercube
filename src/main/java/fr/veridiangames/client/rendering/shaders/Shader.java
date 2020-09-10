@@ -23,16 +23,21 @@ import static fr.veridiangames.client.FileManager.getResource;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
+import fr.veridiangames.client.FileManager;
 import fr.veridiangames.core.maths.Mat4;
 import fr.veridiangames.core.maths.Vec2;
 import fr.veridiangames.core.maths.Vec3;
 import fr.veridiangames.core.utils.Log;
 import fr.veridiangames.client.rendering.renderers.Renderer;
 import fr.veridiangames.client.rendering.utils.BufferUtil;
+
+import javax.imageio.ImageIO;
 
 /**
  * Created by Marccspro on 8 f�vr. 2016.
@@ -177,7 +182,9 @@ public abstract class Shader
 		String result = "";
 		try
 		{
-			BufferedReader reader = new BufferedReader(new FileReader(SHADER_PATH + path));
+			InputStream resource = FileManager.class.getClassLoader().getResourceAsStream(SHADER_PATH + path);
+			InputStreamReader streamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+			BufferedReader reader = new BufferedReader(streamReader);
 			String buffer = "";
 			while ((buffer = reader.readLine()) != null)
 			{

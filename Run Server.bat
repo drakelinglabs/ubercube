@@ -1,0 +1,1 @@
+java -cp ubercube.jar fr.veridiangames.server.ServerMain 5424

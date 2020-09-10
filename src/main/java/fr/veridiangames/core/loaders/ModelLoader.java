@@ -19,10 +19,12 @@
 
 package fr.veridiangames.core.loaders;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
+import fr.veridiangames.client.FileManager;
 import fr.veridiangames.core.game.data.models.ModelVox;
 import fr.veridiangames.core.maths.Mathf;
 import fr.veridiangames.core.utils.Color4f;
@@ -38,7 +40,9 @@ public class ModelLoader
 		ModelVox result = null;
 		try
 		{
-			BufferedReader reader = new BufferedReader(new FileReader(modelPath));
+			InputStream resource = FileManager.class.getClassLoader().getResourceAsStream(modelPath);
+			InputStreamReader streamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+			BufferedReader reader = new BufferedReader(streamReader);
 			String line = reader.readLine();
 			
 			String minData[] = line.split("//")[1].split(",");
@@ -84,11 +88,7 @@ public class ModelLoader
 			
 			result = new ModelVox(size, blockdata, xMin, yMin, zMin, xMax, yMax, zMax, xSize, ySize, zSize);
 		}
-		catch (NumberFormatException e)
-		{
-			Log.exception(e);
-		}
-		catch (IOException e)
+		catch (NumberFormatException | IOException e)
 		{
 			Log.exception(e);
 		}

@@ -19,12 +19,17 @@
 
 package fr.veridiangames.client.rendering.guis;
 
+import fr.veridiangames.client.FileManager;
 import fr.veridiangames.core.utils.Log;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import static fr.veridiangames.client.FileManager.getResource;
 
@@ -32,23 +37,21 @@ public class StaticFont {
 	public static Font square_bold(int style, float size) {
 		Font font = null;
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(getResource("fonts/RifficFree-Bold.ttf")));
-		} catch (FontFormatException e) {
-			Log.exception(e);
-		} catch (IOException e) {
+			InputStream resource = FileManager.class.getClassLoader().getResourceAsStream("fonts/RifficFree-Bold.ttf");
+			font = Font.createFont(Font.TRUETYPE_FONT, resource);
+		} catch (FontFormatException | IOException e) {
 			Log.exception(e);
 		}
-		
+
 		return font.deriveFont(style, size);
 	}
 
 	public static Font Kroftsmann(int style, float size) {
 		Font font = null;
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(getResource("fonts/RifficFree-Bold.ttf")));
-		} catch (FontFormatException e) {
-			Log.exception(e);
-		} catch (IOException e) {
+			InputStream resource = FileManager.class.getClassLoader().getResourceAsStream("fonts/RifficFree-Bold.ttf");
+			font = Font.createFont(Font.TRUETYPE_FONT, resource);
+		} catch (FontFormatException | IOException e) {
 			Log.exception(e);
 		}
 
@@ -58,10 +61,9 @@ public class StaticFont {
 	public static Font HPSimplified_Rg(int style, float size) {
 		Font font = null;
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(getResource("fonts/RifficFree-Bold.ttf")));
-		} catch (FontFormatException e) {
-			Log.exception(e);
-		} catch (IOException e) {
+			InputStream resource = FileManager.class.getClassLoader().getResourceAsStream("fonts/RifficFree-Bold.ttf");
+			font = Font.createFont(Font.TRUETYPE_FONT, resource);
+		} catch (FontFormatException | IOException e) {
 			Log.exception(e);
 		}
 
